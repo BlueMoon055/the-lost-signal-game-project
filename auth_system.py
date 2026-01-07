@@ -61,7 +61,6 @@ class AuthSystem:
         # Создаем содержимое попапа
         content = BoxLayout(orientation='vertical', spacing=10, padding=20)
 
-        # ★★★★ ИЗМЕНЕНИЕ: Добавляем сообщение при успешной регистрации ★★★★
         self.reg_success_label = Label(
             text='',
             color=(0.2, 0.8, 0.2, 1),  # Зеленый цвет
@@ -160,10 +159,8 @@ class AuthSystem:
                     }
                     self.save_data()
 
-                # ★★★★ ПРОСТО ИЗМЕНИТЕ ЦВЕТ НА ЗЕЛЕНЫЙ ★★★★
                 self.error_label.color = (0.2, 0.8, 0.2, 1)  # Зеленый
                 self.error_label.text = f'Успешный вход! Добро пожаловать, {username}!'
-                # ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
 
                 self.auth_popup.dismiss()
                 self.auth_callback(username)  # Вызываем callback
@@ -171,6 +168,10 @@ class AuthSystem:
                 self.error_label.text = 'Неверный пароль'
         else:
             self.error_label.text = 'Пользователь не найден'
+
+            # После успешного входа:
+            from kivy.app import App
+            App.get_running_app().show_game_screen(username)
 
     def show_register_popup(self, instance):
         """Показать окно регистрации"""
@@ -280,7 +281,6 @@ class AuthSystem:
             self.reg_error_label.text = 'Имя пользователя уже занято'
             return
 
-        # ★★★★ ИЗМЕНЕНИЕ: Регистрируем, но НЕ входим автоматически ★★★★
         self.users[username] = password
         self.game_data[username] = {
             'level': 1,
@@ -292,7 +292,7 @@ class AuthSystem:
         # Сохраняем данные
         self.save_data()
 
-        # ★★★★ ИЗМЕНЕНИЕ: Показываем сообщение об успешной регистрации ★★★★
+        #Показываем сообщение об успешной регистрации
         success_popup = Popup(
             title='Успех!',
             content=Label(text=f'Аккаунт "{username}" успешно создан!\nТеперь войдите в систему.'),
@@ -300,7 +300,6 @@ class AuthSystem:
         )
         success_popup.open()
 
-        # ★★★★ ИЗМЕНЕНИЕ: Закрываем окно регистрации и показываем окно входа ★★★★
         self.reg_popup.dismiss()
 
         # Показываем окно входа с сообщением об успешной регистрации
