@@ -6,9 +6,11 @@ from kivy.core.window import Window
 from kivy.uix.image import Image
 from kivy.uix.floatlayout import FloatLayout
 from auth_system import AuthSystem
+from os.path import join
 
 class MyApp(App):
     def build(self):
+        self.icon = join(self.directory, 'data', 'icon.png')  # Одна строка в коде
         Window.size = (794, 358)
 
         self.auth = AuthSystem()  # Создаем систему аутентификации
@@ -95,7 +97,7 @@ class MyApp(App):
 
         # Приветствие
         welcome_label = Label(
-            text=f'Добро пожаловать, {username}!',
+            text=f'Добро пожаловать!',
             font_size=24,
             color=(0, 0, 0, 1),
             size_hint=(1, 0.15),  # ★ Можно уменьшить высоту
@@ -219,8 +221,6 @@ class MyApp(App):
             )
         back_3.bind(on_press=lambda x: self.show_game_screen())
         self.main_container.add_widget(back_3)
-
-
 
 if __name__ == '__main__':
     MyApp().run()
