@@ -4,43 +4,17 @@ from PyQt5.QtGui import QIcon, QBrush, QPixmap
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 from PyQt5.QtCore import QUrl
 
-game_layout = None
-
 def play_clicked():
     global game_layout
     QWidget().setLayout(main_win.layout())
     palette.setBrush(main_win.backgroundRole(), QBrush(QPixmap('fon.png')))
     main_win.setPalette(palette)
     main_line2 = QVBoxLayout()
-    main_line2.addWidget(story, alignment=Qt.AlignCenter)
-    main_line2.addWidget(notepad, alignment=Qt.AlignCenter)
+    main_line2.addWidget(cards, alignment=Qt.AlignCenter)
     main_line2.addWidget(gacha, alignment=Qt.AlignCenter)
     main_line2.addWidget(characters, alignment=Qt.AlignCenter)
     main_line2.addWidget(news2, alignment=Qt.AlignCenter)
-    game_layout = main_line2  # сохраняем layout игры
     main_win.setLayout(main_line2)
-
-def story_clicked():
-    QWidget().setLayout(main_win.layout())
-    palette.setBrush(main_win.backgroundRole(), QBrush(QPixmap('fon.png')))
-    main_win.setPalette(palette)
-    main_line3 = QVBoxLayout()
-    h_l = QHBoxLayout()
-    main_line3.addWidget(chapters, alignment=Qt.AlignCenter)
-    h_l.addWidget(s1, alignment=Qt.AlignCenter)
-    h_l.addWidget(ch1, alignment=Qt.AlignCenter)
-    h_l.addWidget(ch2, alignment=Qt.AlignCenter)
-    h_l.addWidget(ch3, alignment=Qt.AlignCenter)
-    main_line3.addLayout(h_l)
-    main_line3.addWidget(back, alignment=Qt.AlignCenter)
-    main_win.setLayout(main_line3)
-
-def back_clicked():
-    if game_layout:  # если есть сохраненный layout игры
-        QWidget().setLayout(main_win.layout())
-        palette.setBrush(main_win.backgroundRole(), QBrush(QPixmap('fon.png')))
-        main_win.setPalette(palette)
-        main_win.setLayout(game_layout)  # возвращаемся в меню игры
 
 app = QApplication([]) #создание объекта-приложения
 app.setStyleSheet("QWidget { color: #B22222; }")  # Medium Violet Red - тёмно-розовый
@@ -79,18 +53,15 @@ name_game = QLabel('The Lost Signal')
 name_game.setStyleSheet('font-size: 40px')
 studio = QLabel('Aetherial Dream Studios')
 studio.setStyleSheet('font-size: 40px')
-story = QPushButton('story')
-story.setFixedSize(300, 50)
-story.setStyleSheet('font-size: 30px')
+cards = QPushButton('cards')
+cards.setFixedSize(300, 50)
+cards.setStyleSheet('font-size: 30px')
 gacha = QPushButton('gacha')
 gacha.setFixedSize(300, 50)
 gacha.setStyleSheet('font-size: 30px')
-characters = QPushButton('my characters')
+characters = QPushButton('my cards')
 characters.setFixedSize(300, 50)
 characters.setStyleSheet('font-size: 30px')
-notepad = QPushButton('notepad')
-notepad.setFixedSize(300, 50)
-notepad.setStyleSheet('font-size: 30px')
 news2 = QPushButton('news')
 news2.setFixedSize(300, 100)
 news2.setStyleSheet('font-size: 30px')
@@ -128,8 +99,5 @@ main_line.addLayout(v_line3)
 main_win.setLayout(main_line) #загрузка заполненной линии на окно приложения
 
 start_play.clicked.connect(play_clicked)
-story.clicked.connect(story_clicked)
-back.clicked.connect(back_clicked)
-
 player.play()  # Запускаем
 app.exec_() #оставлять приложение активным
