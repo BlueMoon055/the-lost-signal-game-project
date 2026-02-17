@@ -1,13 +1,13 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QLabel, QHBoxLayout
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QLabel, QHBoxLayout, QStackedWidget
 from PyQt5.QtGui import QIcon, QBrush, QPixmap
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 from PyQt5.QtCore import QUrl
 import sys
 
 app = QApplication(sys.argv) #создание объекта-приложения
-
 app.setStyleSheet("QWidget { color: #B22222; }")  #тёмно-розовый
+app.setWindowIcon(QIcon("icon.jpg")) #иконка приложения
 
 # Создаем плеер
 player = QMediaPlayer()
@@ -15,19 +15,17 @@ player.setMedia(QMediaContent(QUrl.fromLocalFile("музыка.mp3")))  # ваш
 player.setVolume(50)
 player.mediaStatusChanged.connect(lambda status: status == QMediaPlayer.EndOfMedia and player.play()) # Зацикливание
 
-app.setWindowIcon(QIcon("icon.jpg")) #иконка приложения
+#окно главное
 main_win = QWidget() #создание объекта-окна
 main_win.resize(1588, 716) #задать размеры окна
-
 palette = main_win.palette()
 palette.setBrush(main_win.backgroundRole(), QBrush(QPixmap('fonglav.png')))
 main_win.setPalette(palette)
-# Установить розовый цвет для виджетов
-main_win.setStyleSheet("QPushButton, QLabel { background-color: pink; }")
-
+main_win.setStyleSheet("QPushButton, QLabel { background-color: pink; }") # Установить розовый цвет для виджетов
 main_win.setWindowTitle('The Lost Signal') #задать название окну
 main_win.show() #сделать объект-окно видимым
 
+#виджеты
 welcome = QLabel('Welcome, dear player!')
 welcome.setStyleSheet('font-size: 40px')
 news = QPushButton('news')
