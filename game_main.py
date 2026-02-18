@@ -19,7 +19,7 @@ player.mediaStatusChanged.connect(lambda status: status == QMediaPlayer.EndOfMed
 main_win = QWidget() #создание объекта-окна
 main_win.resize(1588, 716) #задать размеры окна
 palette = main_win.palette()
-palette.setBrush(main_win.backgroundRole(), QBrush(QPixmap('fonglav.png')))
+palette.setBrush(main_win.backgroundRole(), QBrush(QPixmap('fonmenu.png')))
 main_win.setPalette(palette)
 main_win.setStyleSheet("QPushButton, QLabel { background-color: pink; }") # Установить розовый цвет для виджетов
 main_win.setWindowTitle('The Lost Signal') #задать название окну
